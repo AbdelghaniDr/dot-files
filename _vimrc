@@ -15,9 +15,6 @@ let mapleader=","
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" colorscheme desert
-" colorscheme vitamins
-
 set hidden
 set cursorline
 
@@ -31,8 +28,10 @@ set autoindent
 set smartindent
 set copyindent
 set number
+set numberwidth=1
 set shiftround
 set showmatch
+set showcmd
 set ignorecase
 set smartcase
 set incsearch
@@ -80,11 +79,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-dispatch'
 Plug 'scrooloose/syntastic'
-"Plug 'gabrielelana/vim-markdown'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 "Plug 'Valloric/YouCompleteMe'
-"Plug 'sirver/ultisnips'
 "Plug 'vim-scripts/Conque-Shell'
 "Plug 'LucHermitte/lh-cpp'
 "Plug 'OmniSharp/omnisharp-vim'
@@ -92,29 +88,47 @@ Plug 'tpope/vim-dispatch'
 Plug 'wesQ3/vim-windowswap'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
-Plug 'ervandew/supertab'
 Plug 'OrangeT/vim-csharp'
 Plug 'nanotech/jellybeans.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'othree/html5.vim'
+Plug 'Konfekt/FastFold'
 Plug 'Shougo/neocomplete.vim'
 Plug 'tpope/vim-ragtag'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'ervandew/supertab'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+"Plug 'luochen1990/rainbow'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'justinmk/vim-gtfo'
+Plug 'mhinz/vim-startify'
+Plug 'tpope/vim-commentary'
+"Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-markdown'
+Plug 'jtratner/vim-flavored-markdown'
+"Plug 'gabrielelana/vim-markdown'
 
 call plug#end()
 
 nmap <F12> :NERDTreeToggle<CR>
 
 set background=dark
+
+" colorscheme desert
+" colorscheme vitamins
 "colorscheme desert
-colorscheme base16-atelierestuary
+"colorscheme base16-atelierestuary
+colorscheme CandyPaper
 set laststatus=2
 augroup project
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
-set completeopt=longest,menuone
+"set completeopt=longest,menuone
+set completeopt=preview,menuone
 "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:ycm_global_ycm_extra_conf = '~/vimfiles/plugged/YouCompleteMe/.ycm_extra_conf.py'
 hi Search gui=underline,bold guifg=yellow guibg=NONE
@@ -124,7 +138,7 @@ vnoremap <leader><F9> :!python<CR>
 let g:vim_markdown_folding_disabled = 1
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType php nnoremap <buffer> <F9> :exec '!php7' shellescape(@%,1)<CR>
-
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " ctrlp configuration :
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
@@ -164,4 +178,20 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
+" ultisnips configuration
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<C-l>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-m>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDirectories = ['~/vimfiles/UltiSnips/', '~/vimfiles/plugged/vim-snippets/UltiSnips']
+
+" tpope vim-markdown configuration
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'js', 'cpp', 'css']
+
+" vim-markdown configuration
+"let g:markdown_enable_spell_checking = 0
+"let g:markdown_enable_conceal = 1
 " emmet
