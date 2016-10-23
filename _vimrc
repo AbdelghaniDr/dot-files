@@ -1,7 +1,8 @@
 set nocompatible
 
-"set guifont=Fira_Code_Medium:h11:cANSI:qDRAFT
-set guifont=Monaco:h11
+set guifont=FuraCode_NF:h11:cANSI:qDRAFT
+"set guifont=Monaco:h10:b
+"set guifont=ProFontWindows_NF:h14:cANSI:qDRAFT
 "set guifont=Anonymous_Pro:h12:cANSI
 "set guifont=PragmataPro:h12
 set go=-t
@@ -11,6 +12,7 @@ if has('autocmd')
   autocmd GUIEnter * set visualbell t_vb=
 endif
 
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
 let mapleader=","
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
@@ -57,6 +59,8 @@ nmap Q gqap
 
 nnoremap j gj
 nnoremap k gk
+
+nmap ,, <C-^>
 
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -109,9 +113,9 @@ Plug 'gregsexton/gitv'
 Plug 'justinmk/vim-gtfo'
 Plug 'mhinz/vim-startify'
  Plug 'tpope/vim-commentary'
-"Plug 'plasticboy/vim-markdown'
-Plug 'tpope/vim-markdown'
-Plug 'jtratner/vim-flavored-markdown'
+Plug 'plasticboy/vim-markdown'
+"Plug 'tpope/vim-markdown'
+"Plug 'jtratner/vim-flavored-markdown'
 "Plug 'gabrielelana/vim-markdown'
 
 " ---- general dev ----
@@ -154,9 +158,9 @@ set completeopt=preview,menuone
 let g:ycm_global_ycm_extra_conf = '~/vimfiles/plugged/YouCompleteMe/.ycm_extra_conf.py'
 hi Search gui=underline,bold guifg=yellow guibg=NONE
 hi IncSearch gui=underline,bold guifg=yellow guibg=NONE
-autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%,1)<CR>
-vnoremap <leader><F9> :!python<CR>
 let g:vim_markdown_folding_disabled = 1
+vnoremap <leader><F9> :!python<CR>
+autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%,1)<CR>
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType php nnoremap <buffer> <F9> :exec '!php7' shellescape(@%,1)<CR>
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -309,4 +313,9 @@ set background=dark
 " colorscheme vitamins
 "colorscheme desert
 "colorscheme base16-atelierestuary
-colorscheme CandyPaper
+colorscheme Monokai
+
+let g:pymode_lint_on_write = 1
+" GitGutter
+" if this flag is set to 1 gitgutter won't work on my machine
+let g:gitgutter_async=0 
