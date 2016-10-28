@@ -124,8 +124,12 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'kien/rainbow_parentheses.vim'
 "Plug 'luochen1990/rainbow'
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'javascript', 'go',
+                                        \'rust', 'java', 'cs', 'python',
+                                        \'typescript', 'php', 'objc', 'objcpp']
+                                \}
+" does not support windows
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'} 
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'airblade/vim-gitgutter'
@@ -133,7 +137,7 @@ Plug 'gregsexton/gitv'
 Plug 'justinmk/vim-gtfo'
 Plug 'mhinz/vim-startify'
 "Plug 'tpope/vim-commentary'
-Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 "Plug 'tpope/vim-markdown'
 "Plug 'jtratner/vim-flavored-markdown'
 "Plug 'gabrielelana/vim-markdown'
@@ -142,17 +146,17 @@ Plug 'plasticboy/vim-markdown'
 Plug 'tacahiroy/ctrlp-funky'
 
 " --- C++ -----
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 
 " --- web dev plugins ---
-Plug 'othree/html5.vim'
+Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'gregsexton/matchtag'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'ap/vim-css-color'
-Plug 'pangloss/vim-javascript'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'burnettk/vim-angular'
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
+Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 "Plug 'ternjs/tern_for_vim'
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 
@@ -168,16 +172,17 @@ Plug 'terryma/vim-expand-region'
 Plug 'ryanoasis/vim-devicons'
 
 " Go Programming language
-Plug 'fatih/vim-go'
-Plug 'garyburd/go-explorer'
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'garyburd/go-explorer', {'for': 'go'}
 
 " Rust
-Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
 " web api
 Plug 'mattn/webapi-vim'
 " Realtime search/replace highlighting
 Plug 'osyo-manga/vim-over'
+"Plug 'gelguy/Cmd2.vim'
 " distraction free vim
 "Plug 'junegunn/goyo.vim'
 
@@ -202,7 +207,6 @@ augroup END
 "set completeopt=longest,menuone
 set completeopt=preview,menuone
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-let g:ycm_global_ycm_extra_conf = '~/vimfiles/plugged/YouCompleteMe/.ycm_extra_conf.py'
 hi Search gui=underline,bold guifg=yellow guibg=NONE
 hi IncSearch gui=underline,bold guifg=yellow guibg=NONE
 let g:vim_markdown_folding_disabled = 1
@@ -261,6 +265,11 @@ endif
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" YouCompleteMe configuration
+let g:ycm_global_ycm_extra_conf = '~/vimfiles/plugged/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_error_symbol = '⌦'
+let g:ycm_warning_symbol = '⌦'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
