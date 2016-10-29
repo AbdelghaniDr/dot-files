@@ -115,9 +115,7 @@ Plug 'OrangeT/vim-csharp'
 Plug 'nanotech/jellybeans.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'Konfekt/FastFold'
-Plug 'Shougo/neocomplete.vim'
-Plug 'tpope/vim-ragtag'
-Plug 'mattn/emmet-vim'
+"Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
@@ -149,6 +147,8 @@ Plug 'tacahiroy/ctrlp-funky'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 
 " --- web dev plugins ---
+Plug 'tpope/vim-ragtag', {'for': 'html'}
+Plug 'mattn/emmet-vim', {'for': 'html'}
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'gregsexton/matchtag'
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
@@ -225,16 +225,16 @@ let g:notes_directories = ['C:/devprojects/Freelancing/Notes']
 
 " neocomplete configuration :
 
-"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" " Disable AutoComplPop.
+" let g:acp_enableAtStartup = 0
+" " Use neocomplete.
+" let g:neocomplete#enable_at_startup = 1
+" " Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
+" " Set minimum syntax keyword length.
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 
 " Define keyword.
@@ -267,7 +267,7 @@ let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " YouCompleteMe configuration
-let g:ycm_global_ycm_extra_conf = '~/vimfiles/plugged/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/vimfiles/.ycm_extra_conf.py'
 let g:ycm_error_symbol = '⌦'
 let g:ycm_warning_symbol = '⌦'
 
