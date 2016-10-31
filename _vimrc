@@ -53,7 +53,10 @@ set nobackup
 set noswapfile
 set encoding=utf-8
 set fileencoding=utf-8
-set autochdir " new files are saved automatically in dir of current file
+" VimShell does not work if this is set
+"set autochdir " new files are saved automatically in dir of current file
+set wildmenu
+set wildmode=list:full,full
 
 filetype plugin indent on
 filetype plugin on
@@ -65,6 +68,8 @@ set list
 set listchars=eol:⏎,tab:».,trail:.,extends:✄,nbsp:.
 set mouse=a
 set conceallevel=2
+set textwidth=0
+set wrapmargin=0
 
 set linespace=0
 set guicursor=a:blinkon0  " Disable cusor blink
@@ -90,63 +95,114 @@ endif
 
 call plug#begin('~/vimfiles/plugged')
 
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'xuyuanp/nerdtree-git-plugin'
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-surround'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'altercation/vim-colors-solarized'
-"Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-dispatch'
-Plug 'scrooloose/syntastic'
-Plug 'godlygeek/tabular'
-"Plug 'vim-scripts/Conque-Shell'
-Plug 'jewes/Conque-Shell'
-"Plug 'LucHermitte/lh-cpp'
-"Plug 'OmniSharp/omnisharp-vim'
+" +---------------------------------------------+
+" |          +      MISC.   +                   |
+" +---------------------------------------------+
+Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-dispatch'
 Plug 'wesQ3/vim-windowswap'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-shell'
-Plug 'xolox/vim-notes'
-Plug 'OrangeT/vim-csharp'
-Plug 'nanotech/jellybeans.vim'
-Plug 'flazz/vim-colorschemes'
+Plug 'mhinz/vim-startify'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-surround'
+Plug 'godlygeek/tabular'
 Plug 'Konfekt/FastFold'
-"Plug 'Shougo/neocomplete.vim'
-Plug 'ervandew/supertab'
-Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'junegunn/rainbow_parentheses.vim'
-" Plug 'kien/rainbow_parentheses.vim'
-"Plug 'luochen1990/rainbow'
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'javascript', 'go',
-                                        \'rust', 'java', 'cs', 'python',
-                                        \'typescript', 'php', 'objc', 'objcpp']
-                                \}
-" does not support windows
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'} 
+Plug 'justinmk/vim-gtfo'
+
+" +---------------------------------------------+
+" |   + Navigation/Movement/Editin  +           |
+" +---------------------------------------------+
+Plug 'scrooloose/nerdtree'
+Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/vim-signjk-motion'
+Plug 'terryma/vim-expand-region'
+" Realtime search/replace highlighting
+Plug 'osyo-manga/vim-over'
+"Plug 'kana/vim-operator-user'
+"Plug 'haya14busa/vim-operator-flashy'
+
+" +---------------------------------------------+
+" |      +  Source Code Mgmt. +                 |
+" +---------------------------------------------+
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'gregsexton/gitv'
-Plug 'justinmk/vim-gtfo'
-Plug 'mhinz/vim-startify'
-"Plug 'tpope/vim-commentary'
+Plug 'xuyuanp/nerdtree-git-plugin'
+"
+" +---------------------------------------------+
+" |       +      MARKDOWN   +                   |
+" +---------------------------------------------+
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 "Plug 'tpope/vim-markdown'
 "Plug 'jtratner/vim-flavored-markdown'
-"Plug 'gabrielelana/vim-markdown'
+"Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+"
+" +---------------------------------------------+
+" |       + TODOs and notes +                   |
+" +---------------------------------------------+
+Plug 'xolox/vim-notes'
+Plug 'Dimercel/todo-vim'
 
-" ---- general dev ----
+" +---------------------------------------------+
+" |    + Rainbow Parenthesis +                  |
+" +---------------------------------------------+
+Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'kien/rainbow_parentheses.vim'
+"Plug 'luochen1990/rainbow'
+
+" +---------------------------------------------+
+" |                 + Shells +                  |
+" +---------------------------------------------+
+Plug 'jewes/Conque-Shell'
+Plug 'Shougo/vimproc.vim', { 'do': 'mingw32-make' }
+Plug 'Shougo/vimshell.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-shell'
+
+" +---------------------------------------------+
+" |            + General Dev +                  |
+" +---------------------------------------------+
+Plug 'ervandew/supertab'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'tpope/vim-commentary'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/syntastic'
+"Plug 'Shougo/neocomplete.vim' " obsoleted by YouCompleteMe
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'javascript', 'go',
+                                        \'rust', 'cs', 'python',
+                                        \'typescript', 'php', 'objc', 'objcpp']
+                                \}
 Plug 'tacahiroy/ctrlp-funky'
+" fixing errors
+"Plug 'stefandtw/quickfix-reflector.vim' " didn't know how it works
 
-" --- C++ -----
+" +---------------------------------------------+
+" |                 +  C++   +                  |
+" +---------------------------------------------+
+Plug 'Shougo/echodoc.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+"Plug 'LucHermitte/lh-cpp'
 
-" --- web dev plugins ---
+" +---------------------------------------------+
+" |                 +  C#    +                  |
+" +---------------------------------------------+
+" Plug 'OmniSharp/Omnisharp-vim', {'for': 'cs'}
+Plug 'OrangeT/vim-csharp', {'for' : 'cs'}
+
+" +---------------------------------------------+
+" |                 +  JAVA  +                  |
+" +---------------------------------------------+
+Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
+
+" +---------------------------------------------+
+" |                 +  WEB DEV +                |
+" +---------------------------------------------+
 Plug 'tpope/vim-ragtag', {'for': 'html'}
 Plug 'mattn/emmet-vim', {'for': 'html'}
 Plug 'othree/html5.vim', { 'for': 'html' }
@@ -159,38 +215,36 @@ Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 "Plug 'ternjs/tern_for_vim'
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'heavenshell/vim-jsdoc', {'for': 'javascript'}
 
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/vim-signjk-motion'
-"Plug 'kana/vim-operator-user'
-"Plug 'haya14busa/vim-operator-flashy'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tomasr/molokai'
-Plug 'terryma/vim-expand-region'
-Plug 'ryanoasis/vim-devicons'
-
-" Go Programming language
+" +---------------------------------------------+
+" |                  +   GO  +                  |
+" +---------------------------------------------+
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'garyburd/go-explorer', {'for': 'go'}
 
-" Rust
+" +---------------------------------------------+
+" |                +   RUST  +                  |
+" +---------------------------------------------+
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'timonv/vim-cargo', {'for': 'rust'}
 
-" web api
-Plug 'mattn/webapi-vim'
-" Realtime search/replace highlighting
-Plug 'osyo-manga/vim-over'
+" +---------------------------------------------+
+" |                + THEMES  +                  |
+" +---------------------------------------------+
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'nanotech/jellybeans.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'godlygeek/csapprox'
+Plug 'tomasr/molokai'
+Plug 'ryanoasis/vim-devicons'
+Plug 'kabbamine/yowish.vim'
+
+
 "Plug 'gelguy/Cmd2.vim'
 " distraction free vim
 "Plug 'junegunn/goyo.vim'
-
-" theme
-Plug 'kabbamine/yowish.vim'
-
-" fixing errors
-"Plug 'stefandtw/quickfix-reflector.vim' " didn't know how it works
 
 "
 "Plug 'ap/vim-buftabline' " -- airline does it
@@ -238,10 +292,10 @@ let g:notes_directories = ['C:/devprojects/Freelancing/Notes']
 
 
 " Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" if !exists('g:neocomplete#keyword_patterns')
+"     let g:neocomplete#keyword_patterns = {}
+" endif
+" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 
 " Enable omni completion.
@@ -250,11 +304,25 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
+" if !exists('g:neocomplete#sources#omni#input_patterns')
+"   let g:neocomplete#sources#omni#input_patterns = {}
+" endif
+
+"  START - startify configuration
+let g:startify_custom_header = [
+    \ '           ____  _____  ______ _      _____ _    _          _   _ _____ ' ,
+    \ '     /\   |  _ \|  __ \|  ____| |    / ____| |  | |   /\   | \ | |_   _|' ,
+    \ '    /  \  | |_) | |  | | |__  | |   | |  __| |__| |  /  \  |  \| | | |  ' ,
+    \ '   / /\ \ |  _ <| |  | |  __| | |   | | |_ |  __  | / /\ \ | . ` | | |  ' ,
+    \ '  / ____ \| |_) | |__| | |____| |___| |__| | |  | |/ ____ \| |\  |_| |_ ' ,
+    \ ' /_/    \_\____/|_____/|______|______\_____|_|  |_/_/    \_\_| \_|_____|' ,
+    \ '                                                                        ' ,
+    \ '                                                                        ' ,
+    \ ]
+"  END startify configuration
 
 " ultisnips configuration
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -284,8 +352,8 @@ let g:UltiSnipsSnippetsDirectories = ['~/vimfiles/UltiSnips/', '~/vimfiles/plugg
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'js', 'cpp', 'css']
 
 " vim-markdown configuration
-"let g:markdown_enable_spell_checking = 0
-"let g:markdown_enable_conceal = 1
+let g:markdown_enable_spell_checking = 0
+let g:markdown_enable_conceal = 1
 " vim-javascript configuration
 let g:javascript_conceal_function       = "ƒ"
 let g:javascript_conceal_null           = "ø"
@@ -298,6 +366,10 @@ let g:javascript_conceal_static         = "•"
 let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
 let g:javascript_plugin_jsdoc = 1
+
+" START - vim-jsDoc configuration
+nmap <silent> <leader>gd <Plug>(jsdoc)
+" END - vim-jsdoc configuration
 " molokai configuration
 let g:molokai_original = 1
 " junegunn/rainbow_parentheses
@@ -357,7 +429,9 @@ au Syntax * RainbowParentheses
 "     \    }
 "     \}
 " let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-
+" START NERDTree configuration
+let NERDTreeIgnore = ['\.pyc$']
+" END NERDTree configuration
 " nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
@@ -371,7 +445,14 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 " javascript-libraries-syntax
-let g:used_javascript_libs = 'angularjs,angularui, jasmine'
+let g:used_javascript_libs = 'angularjs,angularui,angularuirouter,jasmine'
+
+" START - CtrlP configuration
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir',
+                          \ 'line', 'changes', 'mixed', 'bookmarkdir']
+
+"END CtrlP configuration
+
 " CtrlP-funky
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
@@ -434,9 +515,110 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " END - nerdcommenter configs
 
+" START OmniSharp configuration
+" let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
+" let g:OmniSharp_server_type = 'roslyn'
+
+"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
+"You might also want to look at the echodoc plugin
+" set splitbelow
+
+" Get Code Issues and syntax errors
+" let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+" If you are using the omnisharp-roslyn backend, use the following
+" let g:syntastic_cs_checkers = ['code_checker']
+" augroup omnisharp_commands
+"     autocmd!
+"
+"     "Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
+"     autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+"
+"     " Synchronous build (blocks Vim)
+"     "autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
+"     " Builds can also run asynchronously with vim-dispatch installed
+"     autocmd FileType cs nnoremap <leader>b :wa!<cr>:OmniSharpBuildAsync<cr>
+"     " automatic syntax check on events (TextChanged requires Vim 7.4)
+"     autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+"
+"     " Automatically add new cs files to the nearest project on save
+"     autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+"
+"     "show type information automatically when the cursor stops moving
+"     autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+"
+"     "The following commands are contextual, based on the current cursor position.
+"
+"     autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+"     autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+"     autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
+"     autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+"     autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
+"     "finds members in the current buffer
+"     autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
+"     " cursor can be anywhere on the line containing an issue
+"     autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
+"     autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
+"     autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+"     autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>
+"     "navigate up by method/property/field
+"     autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+"     "navigate down by method/property/field
+"     autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+"
+" augroup END
+" this setting controls how long to wait (in ms) before fetching type / symbol information.
+" set updatetime=500
+" Remove 'Press Enter to continue' message when type information is longer than one line.
+"set cmdheight=2
+
+" Contextual code actions (requires CtrlP or unite.vim)
+" nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
+" Run code actions with text selected in visual mode to extract method
+" vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
+
+" rename with dialog
+" nnoremap <leader>nm :OmniSharpRename<cr>
+" nnoremap <F2> :OmniSharpRename<cr>
+" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+" command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+" Force OmniSharp to reload the solution. Useful when switching branches etc.
+" nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+" nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+" Load the current .cs file to the nearest project
+" nnoremap <leader>tp :OmniSharpAddToProject<cr>
+
+" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+" nnoremap <leader>ss :OmniSharpStartServer<cr>
+" nnoremap <leader>sp :OmniSharpStopServer<cr>
+
+" Add syntax highlighting for types and interfaces
+" nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+" Enable snippet completion, requires completeopt-=preview
+" let g:OmniSharp_want_snippet=1
+"Super tab settings - uncomment the next 4 lines
+" let g:SuperTabDefaultCompletionType = 'context'
+" let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+" let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
+" let g:SuperTabClosePreviewOnPopupClose = 1
+"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
+"You might also want to look at the echodoc plugin
+set splitbelow
+
+"Showmatch significantly slows down omnicomplete
+"when the first match contains parentheses.
+" set noshowmatch
+
+" END OmniSharp configuration
+
+" START todo configuration"
+nmap <leader>td :TODOToggle<cr>
+" END todo configuration
+
 " Theme customizations
 hi Cursor ctermbg=Green guibg=Green
 hi Normal ctermfg=White guifg=gray71
 
 " don't highlight conceal
 hi clear Conceal
+
