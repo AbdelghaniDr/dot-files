@@ -1,4 +1,15 @@
 set nocompatible
+set encoding=utf-8
+
+if has("gui_running")
+  set guioptions=icpM
+  if has('win32') || has('win64')
+    if (v:version == 704 && has("patch393")) || v:version > 704
+      set renderoptions=type:directx,level:1,gamma:1.0,contrast:0.5,
+            \geom:1,renmode:5,taamode:1
+    endif
+  endif
+endif
 
 set guifont=FuraCode_NF:h11:cANSI:qDRAFT
 "set guifont=Monaco:h10:b
@@ -51,12 +62,11 @@ set smarttab
 set hlsearch
 set nobackup
 set noswapfile
-set encoding=utf-8
 set fileencoding=utf-8
 " VimShell does not work if this is set
 "set autochdir " new files are saved automatically in dir of current file
 set wildmenu
-set wildmode=list:full,full
+set wildmode=longest:full,full
 
 filetype plugin indent on
 filetype plugin on
@@ -166,17 +176,20 @@ Plug 'xolox/vim-shell'
 " +---------------------------------------------+
 " |            + General Dev +                  |
 " +---------------------------------------------+
+Plug 'majutsushi/tagbar'
 Plug 'ervandew/supertab'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdcommenter'
 "Plug 'tpope/vim-commentary'
-Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/syntastic'
 "Plug 'Shougo/neocomplete.vim' " obsoleted by YouCompleteMe
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'javascript', 'go',
                                         \'rust', 'cs', 'python',
-                                        \'typescript', 'php', 'objc', 'objcpp']
+                                        \'typescript', 'php', 'objc', 'objcpp'
+                                        \]
                                 \}
 Plug 'tacahiroy/ctrlp-funky'
 " fixing errors
@@ -240,6 +253,9 @@ Plug 'godlygeek/csapprox'
 Plug 'tomasr/molokai'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kabbamine/yowish.vim'
+Plug 'sjl/badwolf'
+Plug 'morhetz/gruvbox'
+Plug 'w0ng/vim-hybrid'
 
 
 "Plug 'gelguy/Cmd2.vim'
@@ -335,6 +351,10 @@ let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " YouCompleteMe configuration
+" autocmd FileType cs nmap <silent> <leader>gd :YcmCompleter GetDoc<cr>
+let g:ycm_csharp_server_port = 2000
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_global_ycm_extra_conf = '~/vimfiles/.ycm_extra_conf.py'
 let g:ycm_error_symbol = '⌦'
 let g:ycm_warning_symbol = '⌦'
@@ -349,7 +369,7 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDirectories = ['~/vimfiles/UltiSnips/', '~/vimfiles/plugged/vim-snippets/UltiSnips']
 
 " tpope vim-markdown configuration
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'js', 'cpp', 'css']
+" let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'js', 'cpp', 'css']
 
 " vim-markdown configuration
 let g:markdown_enable_spell_checking = 0
@@ -368,7 +388,7 @@ let g:javascript_conceal_arrow_function = "⇒"
 let g:javascript_plugin_jsdoc = 1
 
 " START - vim-jsDoc configuration
-nmap <silent> <leader>gd <Plug>(jsdoc)
+autocmd FileType javascript nmap <silent> <leader>gd <Plug>(jsdoc)
 " END - vim-jsdoc configuration
 " molokai configuration
 let g:molokai_original = 1
@@ -481,9 +501,11 @@ set background=dark
 "colorscheme desert
 "colorscheme base16-atelierestuary
 if has('gui_running')
-  colorscheme Monokai
+  "colorscheme Monokai
+  " colorscheme badwolf
+  colorscheme gruvbox
 else
-  colorscheme CodeFactoryv3
+  colorscheme gruvbox
 endif
 
 let g:pymode_lint_on_write = 1
@@ -518,20 +540,20 @@ let g:NERDTrimTrailingWhitespace = 1
 " START OmniSharp configuration
 " let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
 " let g:OmniSharp_server_type = 'roslyn'
-
-"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
-"You might also want to look at the echodoc plugin
-" set splitbelow
-
-" Get Code Issues and syntax errors
+"
+" "Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
+" "You might also want to look at the echodoc plugin
+set splitbelow
+"
+" " Get Code Issues and syntax errors
 " let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-" If you are using the omnisharp-roslyn backend, use the following
+" " If you are using the omnisharp-roslyn backend, use the following
 " let g:syntastic_cs_checkers = ['code_checker']
 " augroup omnisharp_commands
 "     autocmd!
 "
 "     "Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
-"     autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+"     " autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 "
 "     " Synchronous build (blocks Vim)
 "     "autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
@@ -560,60 +582,69 @@ let g:NERDTrimTrailingWhitespace = 1
 "     autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
 "     autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
 "     autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>
+"     " Contextual code actions (requires CtrlP or unite.vim)
+"     autocmd FileType cs nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
+"     " Run code actions with text selected in visual mode to extract method
+"     autocmd FileType cs vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
+"     " rename with dialog
+"     autocmd FileType cs nnoremap <leader>nm :OmniSharpRename<cr>
+"
+"     autocmd FileType cs nnoremap <F2> :OmniSharpRename<cr>
 "     "navigate up by method/property/field
-"     autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+"     " autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
 "     "navigate down by method/property/field
-"     autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+"     " autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+"     " Force OmniSharp to reload the solution. Useful when switching branches etc.
+"     autocmd FileType cs nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+"     autocmd FileType cs nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+"     " Load the current .cs file to the nearest project
+"     autocmd FileType cs nnoremap <leader>tp :OmniSharpAddToProject<cr>
+"     " Add syntax highlighting for types and interfaces
+"     autocmd FileType cs nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+"
+" " (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+" " nnoremap <leader>ss :OmniSharpStartServer<cr>
+" " nnoremap <leader>sp :OmniSharpStopServer<cr>
+"
 "
 " augroup END
-" this setting controls how long to wait (in ms) before fetching type / symbol information.
+" " this setting controls how long to wait (in ms) before fetching type / symbol information.
 " set updatetime=500
-" Remove 'Press Enter to continue' message when type information is longer than one line.
-"set cmdheight=2
-
-" Contextual code actions (requires CtrlP or unite.vim)
-" nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
-" Run code actions with text selected in visual mode to extract method
-" vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
-
-" rename with dialog
-" nnoremap <leader>nm :OmniSharpRename<cr>
-" nnoremap <F2> :OmniSharpRename<cr>
-" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+" " Remove 'Press Enter to continue' message when type information is longer than one line.
+" "set cmdheight=2
+"
+" " rename without dialog - with cursor on the symbol to rename... ':Rename newname'
 " command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-
-" Force OmniSharp to reload the solution. Useful when switching branches etc.
-" nnoremap <leader>rl :OmniSharpReloadSolution<cr>
-" nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-" Load the current .cs file to the nearest project
-" nnoremap <leader>tp :OmniSharpAddToProject<cr>
-
-" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
-" nnoremap <leader>ss :OmniSharpStartServer<cr>
-" nnoremap <leader>sp :OmniSharpStopServer<cr>
-
-" Add syntax highlighting for types and interfaces
-" nnoremap <leader>th :OmniSharpHighlightTypes<cr>
-" Enable snippet completion, requires completeopt-=preview
+"
+" " Enable snippet completion, requires completeopt-=preview
 " let g:OmniSharp_want_snippet=1
-"Super tab settings - uncomment the next 4 lines
-" let g:SuperTabDefaultCompletionType = 'context'
-" let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-" let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
-" let g:SuperTabClosePreviewOnPopupClose = 1
-"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
-"You might also want to look at the echodoc plugin
-set splitbelow
-
-"Showmatch significantly slows down omnicomplete
-"when the first match contains parentheses.
-" set noshowmatch
+" "Super tab settings - uncomment the next 4 lines
+" " let g:SuperTabDefaultCompletionType = 'context'
+" " let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+" " let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
+" " let g:SuperTabClosePreviewOnPopupClose = 1
+" "Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
+" "You might also want to look at the echodoc plugin
+" set splitbelow
+"
+" "Showmatch significantly slows down omnicomplete
+" "when the first match contains parentheses.
+set noshowmatch
 
 " END OmniSharp configuration
 
 " START todo configuration"
 nmap <leader>td :TODOToggle<cr>
 " END todo configuration
+
+" START indentLine configuration
+let g:indentLine_enabled = 0
+" END indentLine configuration
+
+" START tagbar configuration
+let g:tagbar_ctags_bin = "c:/ctags58/ctags.exe"
+nmap <F8> :TagbarToggle<cr>
+" END tagbar configuration
 
 " Theme customizations
 hi Cursor ctermbg=Green guibg=Green
